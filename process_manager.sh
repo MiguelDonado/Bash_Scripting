@@ -18,8 +18,6 @@
 
 ########################################################
 
-# Things to consider: How to do when given a name, and it returns several pid
-
 error(){
     echo "$1"
     exit 1
@@ -28,10 +26,9 @@ error(){
 # Function to find pid from process name
 get_pid_from_name(){
     pid=$(pgrep -f "$1")
-# -z is a string comparison operator and its true if the length is zero
+# -z is a string comparison operator and its true if the length of the string is zero
     if [[ -z "$pid" ]]; then
-        echo "Process \"$1\" not found."
-        exit 1
+        error "Process \"$1\" not found."
     fi
     echo "$pid"
 }
@@ -60,3 +57,38 @@ echo "3. Change the process priority (nice value)"
 # before reading the input
 # It's gonna store the input value on the variable choice
 read -p "Enter choice [1-3]: " choice
+
+case $choice in 
+    1) 
+        # Terminate the process, shortcircuit operators like in js
+        kill "$pid" && echo "Process $pid terminated." || error "Failed to terminate process $pid."
+        ;;
+    2)
+        # Restart the process
+        # ps is a command used to display info about active processes
+        # The -p option is used to specify the process ID for which information is to be displayed
+        # The -o command specifies the output format. comm stands for command name, and the '=' is to
+        # ensure that the output does not include the header line.
+        process_name=$(ps -p "$pid" -o comm=)
+        kill "$pid" && echo "Process $pid terminated. Restarting..." || error "Failed to restart process $pid"
+        sleep 1 # brief pause to ensure termination
+        # The $! variable holds the PID of the most recent executed background process
+        # The ampersand is used to start the process in the background.
+        # Because the first process is intended to run in the background we can 
+        # place a command after on the same line.
+        $process_name & echo "Process restarted with new PID $!"
+        ;;
+    3) 
+        # Change the process priority
+        read -p "Enter new nice value (-20 to 19): " new_nice
+        # Nice value must be between -20 and 19. Being -20 the highest priority and 19 the lowest.
+        if [[ "$new_nice" =~ ^-?[0-9]+$ ]] && ((new_nice >= -20 && new_nice <=19));then
+            renice "$new_nice" -p "$pid" && echo "Priority of process $pid changed to $new_nice." || error "Failed to change priority."
+        else
+            error "Invalid nice value. Must be between -20 and 19."
+        fi
+        ;;
+    *)
+        error "Invalid choice."
+        ;;
+esac
