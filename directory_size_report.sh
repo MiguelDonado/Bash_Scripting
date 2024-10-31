@@ -42,10 +42,46 @@ THRESHOLD=1000000000
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
 #### LOGIC ####
+# Check directory exists
 # tee command: Reads from stdin and writes to stdout and files.
 #   -a option: Appends the output to the specified file.
 if [[ ! -d "$DIR" ]];then
     error "$DATE - ERROR: Directory $DIR does not exist." | tee -a "$LOG_FILE"
 fi
 
-# Calculate total size of the directory
+# Calculate total size of the directory in bytes
+# du command: Disk usage command, estimate file space usage of directories and files
+# -s: Summarize. Total size of the directory rather than listing the size of each subdirectory and file
+# -b: Display the size in bytes
+TOTAL_SIZE=$(du -sb "$DIR" | awk '{print $1}')
+
+# Write the report header
+echo "===== Directory Size Report for $DIR =====" | tee -a "$LOG_FILE"
+echo "Date: $DATE" | tee -a "$LOG_FILE"
+# numfmt: Command to reformat numbers
+# --to=iec: Option that convert the number to IEC format, which uses 
+# binary prefixes (GiB, KiB...) 
+echo "Threshold: $(numfmt --to=iec $THRESHOLD)" | tee -a "$LOG_FILE"
+echo "------------------------------------------" | tee -a "$LOG_FILE"
+
+# List sizes of each subdirectory in human-readable format
+# "$DIR/*" is the syntax used for pathname expansion, it applies the given command
+# to each one of the matched expanded items
+du -sh "$DIR"/* | tee -a "$LOG_FILE"
+
+# Log the total size in human-readable format
+echo "------------------------------------------" | tee -a "$LOG_FILE"
+echo "Total size: $(numfmt --to=iec $TOTAL_SIZE)" | tee -a "$LOG_FILE"
+
+# Check if the total size exceeds the threshold
+if [[ $TOTAL_SIZE -gt $THRESHOLD ]];then
+    echo "WARNING: Directory size exceeds threshold!" | tee -a "$LOG_FILE"
+    # Send an alert (can be adjusted based on available mail service)
+    # The piped content is gonna be part of the email body
+    # mail: Command to send mails
+    # -s: Option to specify the subject of your mail
+    echo "The directory $DIR has exceeded the size threshold of $(numfmt --to=iec $THRESHOLD)." | mail -s "Directory Size Alert" example@hotmail.es
+fi
+
+# Add a line break for readibility in the log file
+echo "" | tee -a "$LOG_FILE" 
