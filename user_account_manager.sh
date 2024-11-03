@@ -44,4 +44,68 @@ modify_user(){
     fi
 }
 
+# Function to process a batch file
+process_file() {
+    # The keyword local is used to set explicitly the scope of the variable local to this function
+    # In most programmig languages, variables declared inside a function are automatically local to that function.
+    # In Bash, you need to do it explicitly.
+    local file="$1" 
+    # IFS stands for internal field separator. It determines how Bash recognizes word boundaries while splitting 
+    # a sequence of characters strings. By default it uses spaces, tabs or newlines.
+    # I set the IFS within the while, because it ensures that it only affects the following command (on this case the read command)
+    # inside the loop. It's a common practice to avoid unintended effects on other parts of the script.
+    # The read command, reads from stdin line by line, and stores the results in 3 variables
+    # The loop exits when the read command returns a non-zero exit status, which happens when there
+    # are no more lines to read
+    # The -r option of the read command is used so that characters are interpreted as literal characters.
+    # I redirect the stdin to the read command at the end of the loop, on the bottom
+    while IFS=, read -r action username options; do
+        case "$action" in
+            add)
+                add_user "$username"
+                ;;
+            delete)
+                delete_user "$username"
+                ;;
+            modify)
+                modify_user "$username" "$options"
+                ;;
+            *)
+                echo "Invalid action '$action' for user '$username'. Skipping..."
+                ;;
+        esac
+    done < "$file"
+}            
+
+# Script usage
+usage() {
+    echo "Usage: $0 {add|delete|modify|batch} [username] [options|file]"
+    exit 1
+}
+
+# Logic
+
+case "$1" in
+    add)
+        [[ -z "$2" ]] && usage
+        add_user "$2"
+        ;;
+    delete)
+        [[ -z "$2" ]] && usage
+        delete_user "$2"
+        ;;
+    modify)
+        [[ -z "$2" || -z "$3" ]] && usage
+        modify_user "$2" "$3"
+        ;;
+    batch)
+        [[ -z "$2" ]] && usage
+        process_file "$2" 
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+
 
