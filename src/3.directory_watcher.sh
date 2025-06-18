@@ -7,13 +7,13 @@
 ### to a file.
 
 # Directory to monitor
-WATCHED_DIR="/home/miguel/coding-projects/Bash_Scripting/Miscellaneous/backup"
+WATCHED_DIR="/home/miguel/CodingProjects/Bash_Scripting/Miscellaneous/backup"
 
 # Log file to record changes
-LOG_FILE="/home/miguel/coding-projects/Bash_Scripting/Miscellaneous/directory_watcher.log"
+LOG_FILE="/home/miguel/CodingProjects/Bash_Scripting/Miscellaneous/directory_watcher.log"
 
 # Interval between checks (in seconds)
-CHECK_INTERVAL=10
+CHECK_INTERVAL=2
 
 # Initialize associative array file_data to store filenames and their corresponding timestamps
 declare -A file_data

@@ -1,0 +1,124 @@
+Here are 10 intermediate-level exercises to help you practice your Bash scripting skills:
+
+### 1. **File Organizer Script**
+   - **Task:** Write a script that organizes files in a directory by their extensions. For example, all `.txt` files go into a `TextFiles` folder, `.jpg` into `Images`, and so on. The script should handle files with no extensions as well.
+   - **Concepts:** File manipulation, loops, string manipulation, conditionals.
+
+### 2. **Backup and Restore Script**
+   - **Task:** Create a script that backs up a specified directory (with all its contents) into a compressed `.tar.gz` archive. The script should also have an option to restore the backup to the original location.
+   - **Concepts:** Archiving (`tar`), compression (`gzip`), functions, conditional arguments.
+
+### [DONE] 3. **System Resource Monitor**
+   - **Task:** Write a script that monitors CPU and memory usage at regular intervals (e.g., every 5 seconds) and logs the information into a file. The script should stop after a specified time or when the user interrupts it.
+   - **Concepts:** `top`, `vmstat`, `sleep`, loops, signal handling (e.g., `trap`).
+
+### [DONE] 4. **Text File Analyzer**
+   - **Task:** Write a script that takes a text file as input and displays the number of lines, words, and characters in the file, as well as the most frequent word.
+   - **Concepts:** File reading, loops, text processing, word frequency counting, `awk`, `grep`, `sort`.
+
+### [DONE] 5. **Process Manager**
+   - **Task:** Create a script that takes a process name or PID as input and offers options to terminate, restart, or change the priority (nice value) of the process.
+   - **Concepts:** Process management (`ps`, `kill`, `renice`), conditionals, user input.
+
+### [DONE] 6. **Todo List Manager**
+   - **Task:** Build a simple command-line Todo list manager with options to add, view, delete, and mark tasks as completed. Store the tasks in a text file.
+   - **Concepts:** File reading/writing, string manipulation, user input, conditionals.
+
+### [DONE] 7. **Directory Size Report**
+   - Task: Write a Bash script that monitors the size of a specific directory, provides a detailed report of each subdirectory's size, and sends an alert if the total size of the directory exceeds a certain threshold. Additionally, the script should log the results to a file each time it is run.
+
+### [DONE] 8. **User Account Manager**
+   - **Task:** Create a script that can add, delete, or modify user accounts on a system. The script should also check if a user already exists before adding them and allow for batch processing from a file.
+   - **Concepts:** User management (`useradd`, `usermod`, `userdel`), conditionals, file parsing, error handling.
+
+### [DONE] 9. **Log File Rotation**
+   - **Task:** Implement a script that simulates log rotation. It should archive a large log file into a backup folder (with timestamps) when it exceeds a certain size and create a new empty log file.
+   - **Concepts:** File size check (`stat`), timestamp handling, file archiving, conditionals.
+
+### 10. **Automated Remote File Sync**
+   - **Task:** Write a script that syncs files between two directories (local and remote) using `rsync` over SSH. Add an option to run the script automatically every X minutes using `cron`.
+   - **Concepts:** File synchronization (`rsync`), SSH, cron jobs, conditionals, user input.
+
+### [DONE] 11. Directory Watcher Script
+
+    Task: Create a script that monitors a specific directory for any changes (new, modified, or deleted files). When a change is detected, the script should log the details of the change (file name, type of change, timestamp) to a file.
+    Concepts: Directory monitoring (inotifywait or similar), loops, logging, timestamp handling.
+
+12. Web Server Health Check
+
+    Task: Write a script to check the status of a list of web servers by pinging them or sending an HTTP request. Log the response time and status code for each server, and if a server is down, send an alert (e.g., email or log entry).
+    Concepts: Network tools (ping, curl), loops, conditionals, logging, email alerts (using mail or sendmail).
+
+13. File Encryption and Decryption
+
+    Task: Develop a script that can encrypt and decrypt files using a tool like gpg. The script should prompt the user for a passphrase and handle multiple files at once.
+    Concepts: File encryption (gpg), user input, loops, error handling.
+
+14. Database Backup Automation
+
+    Task: Write a script to automate backups for a database (e.g., MySQL or PostgreSQL). The script should create a backup, compress it, add a timestamp to the filename, and optionally remove old backups beyond a certain age.
+    Concepts: Database commands (mysqldump, pg_dump), compression, timestamp handling, file management, cron jobs.
+
+15. Image Resizer
+
+    Task: Create a script that resizes all images in a specified directory to a given resolution (e.g., 800x600) and saves them in a separate directory. Use a tool like convert from ImageMagick.
+    Concepts: File manipulation, loops, image processing tools, user input.
+
+16. [DONE] Password Generator
+
+    Task: Write a script that generates a random, secure password based on given length and complexity options (e.g., uppercase, lowercase, numbers, special characters).
+    Concepts: Randomization, string manipulation, user input, conditional arguments.
+
+17. Email Attachment Extractor
+
+    Task: Build a script that extracts attachments from email files in mbox or Maildir format and saves them to a specified directory.
+    Concepts: File reading, string manipulation, pattern matching, grep, and sed.
+
+18. Network Bandwidth Monitor
+
+    Task: Write a script that monitors network bandwidth usage (e.g., on a specified interface) and logs the data over time. If bandwidth usage exceeds a threshold, trigger an alert.
+    Concepts: Network tools (ifstat, vnstat, sar), loops, logging, conditionals.
+
+19. [DONE] Disk Usage Cleaner
+
+    Task: Create a script that identifies files or directories over a specified size within a given directory and offers the user options to delete them. Add an option to automatically delete files older than a specified number of days.
+    Concepts: Disk usage (du), file size and age (find, stat), user input, file manipulation.
+
+20. Weather Info Fetcher
+
+    Task: Develop a script that fetches the current weather information for a specified city using an API (e.g., OpenWeatherMap) and displays it. Consider allowing options for temperature units and data format (JSON or plain text).
+    Concepts: APIs (using curl or wget), JSON parsing (jq), conditionals, user input.
+
+These exercises will help you strengthen your skills in file manipulation, process control, system monitoring, and automation in Bash. Let me know if you'd like to dive deeper into any of them!
+
+##################### GETOPTS ###############################
+
+21. [DONE] File Permission Manager
+
+    Task: Create a script that modifies file permissions based on user-specified options. Use getopts to allow users to set read, write, or execute permissions for files or directories.
+    Concepts: File permissions (chmod), getopts, conditionals.
+
+22. [DONE] Network Ping Tool
+
+    Task: Write a script to ping multiple IP addresses or domain names specified as arguments. Use getopts to set the number of ping attempts and timeout duration.
+    Concepts: Networking (ping), getopts, loops, string parsing.
+
+23. [DONE] File Search Tool
+
+    Task: Develop a script to search for files based on name, extension, or size. Use getopts to specify search criteria and options for recursive search or displaying detailed output.
+    Concepts: File searching (find), getopts, conditionals.
+
+24. [DONE] Custom Command-Line Calculator
+
+    Task: Develop a simple calculator script that supports addition, subtraction, multiplication, and division. Use getopts to specify numbers and the operation.
+    Concepts: Arithmetic operations, getopts, user input validation.
+
+25. [DONE] User Activity Tracker
+
+    Task: Create a script to track login activity of specific users. Use getopts to specify usernames, time ranges, and output formats.
+    Concepts: User tracking (last, w), getopts, conditionals.
+
+26. Log Analyzer
+
+    Task: Develop a script that analyzes a log file for specific patterns (e.g., errors, warnings). Use getopts to specify the log file, search keyword, and output format (e.g., summary or detailed).
+    Concepts: Text processing (grep, awk), getopts, file reading.

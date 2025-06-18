@@ -7,9 +7,9 @@
 #   3. Remove FincasProject.db file.
 
 # ABSOLUTE PATHS SINCE THE PROJECT WONT CHANGE LOCATION
-DATAPATH="/home/miguel/coding-projects/ScrapingFincasHacienda/data"
-LOGSPATH="/home/miguel/coding-projects/ScrapingFincasHacienda/scrapingFincasHacienda/logs"
-DBPATH="/home/miguel/coding-projects/ScrapingFincasHacienda/scrapingFincasHacienda/FincasProject.db"
+DATAPATH="/home/miguel/CodingProjects/HaciendaFincas_Scraping/data"
+LOGSPATH="/home/miguel/CodingProjects/HaciendaFincas_Scraping/scrapingFincasHacienda/logs"
+DBPATH="/home/miguel/CodingProjects/HaciendaFincas_Scraping/scrapingFincasHacienda/FincasProject.db"
 
 # Given a directory, it empty each subfolder.
 folder_remove(){

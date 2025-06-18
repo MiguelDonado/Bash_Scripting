@@ -36,7 +36,7 @@ while getopts "$OPTSTRING" opt; do
         t)
             days="$OPTARG"
             # Check if days is numeric
-            if ! [[ "$days" =~^[0-9]+$ ]]; then
+            if ! [[ "$days" =~ ^[0-9]+$ ]]; then
                 echo "Option -t expects a numeric value. Argument ${OPTARG} is invalid."
                 exit 1
             fi

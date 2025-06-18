@@ -33,7 +33,7 @@ fi
 DIR=$(realpath "${1:-$(pwd)}")
 
 # Log file
-LOG_FILE="/home/miguel/coding-projects/Bash_Scripting/Miscellaneous/directory_size_report.log"
+LOG_FILE="/home/miguel/CodingProjects/Bash_Scripting/Miscellaneous/directory_size_report.log"
 
 # Threshold in bytes (e.g., 1GB = 1000000000)
 THRESHOLD=1000000000
@@ -80,7 +80,7 @@ if [[ $TOTAL_SIZE -gt $THRESHOLD ]];then
     # The piped content is gonna be part of the email body
     # mail: Command to send mails
     # -s: Option to specify the subject of your mail
-    echo "The directory $DIR has exceeded the size threshold of $(numfmt --to=iec $THRESHOLD)." | mail -s "Directory Size Alert" example@hotmail.es
+    # echo "The directory $DIR has exceeded the size threshold of $(numfmt --to=iec $THRESHOLD)." | mail -s "Directory Size Alert" example@hotmail.es
 fi
 
 # Add a line break for readibility in the log file
